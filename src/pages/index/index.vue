@@ -175,7 +175,7 @@ export default {
   // created () {
   //   // let app = getApp()
   // }
-  onShow() {
+  created() {
    /*阿里云官网demo
    console.log('正在连接...')
     
@@ -197,7 +197,7 @@ export default {
       username: 'wx_program_dev&h0njatWd7OS', // 用户名
       password: '8d1b73f0a0176d4c3173d3b05732c5575024fdf5', // 密码
       cleanSession: false,
-      keepAlive: 300, // 心跳值，心跳值太大可能会连接不成功，这个参考文档
+      keepAlive: 100, // 心跳值，心跳值太大可能会连接不成功，这个参考文档
     };
     
     console.log('正在连接...')
