@@ -86,8 +86,8 @@ export default {
             },
             success(res){
               console.log(res.data);
-              if(that.username == res.data.username){
-                if(that.password == res.data.password){
+              if(that.username == "glxwxy"){//if(that.username == res.data.username)  更改为固定账号登陆
+                if(that.password == "552211"){//if(that.password == res.data.password){
                   Toast.success("登陆成功!^_^");
                   //500ms后跳转到首页
                   setTimeout(()=>{
