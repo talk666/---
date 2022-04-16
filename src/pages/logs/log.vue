@@ -62,64 +62,8 @@ export default {
   },
 
   onShow() {
-    var that = this;
-    let year = []
-    let month = []
-    let day = []
-
-    var i,j
-    wx.getLocation({
-      type: 'wgs84',
-      success (res) {
-          const latitude = res.latitude //维度
-          const longitude = res.longitude //经度
-          const key = "5a022a6bc3ac4d918dfcf2e117289aa6"
-        //只用来获取一下网络时间
-        wx.request({
-        url: `https://devapi.qweather.com/v7/weather/now?location=${longitude},${latitude}&key=${key}`, //获取天气数据api接口 和风天气
-
-        success (res) {
-          for(i = 0; i < 4; i++){
-            year[i] = parseInt(res.data.now.obsTime[i])
-          }
-          j = 0
-          for(i = 0; i < 2; i++){
-            j = i + 5
-            month[i] = parseInt(res.data.now.obsTime[j])
-          }
-          j = 0
-          for(i = 0; i < 2; i++){
-            j = 8 + i
-            day[i] = parseInt(res.data.now.obsTime[j])
-          }
-//当前时间
-          var num_year = year[0]*1000+year[1]*100+year[2]*10+year[3]
-          var num_month = month[0]*10+month[1]
-          var num_day = day[0]*10+day[1]
-//计算在一起的时间
-          var together_days = (num_year - 2019)*365 + (num_month - 9)*30 + (num_day - 20)
-//更新到主题
-          that.Sum_days = together_days
-
-//计算阳历生日
-          var birthday_days = (num_month - 6)*30 + (num_day - 17)
-          if(birthday_days < 0){//也就说生日在本年还没到
-            that.Birth_days = (-birthday_days)
-          }else{
-            that.Birth_days = (365 - birthday_days)
-          }
-//计算周年纪念
-          var  spcial_days= (num_month - 9)*30 + (num_day - 20)
-          if(spcial_days < 0){//也就说生日在本年还没到
-            that.Year_days = (-spcial_days)
-          }else{
-            that.Year_days = (365 - spcial_days)
-          }
-          }
-        })
-
-      }
-    })
+    var that = this
+    that.Get_time_fordist("2019-09-20","1996-07-19")
   },
   methods: {
     Onclick_one(event){
@@ -149,7 +93,7 @@ export default {
       },1000)
     },
     Onclick_third(event){
-            var that = this
+      var that = this
 
       Toast.loading({
         duration:0, //持续展示Toast 展示在最上层
@@ -161,11 +105,40 @@ export default {
         Toast.clear()
       },1000)
     },
-  }
+    Get_time_fordist(Date_end,Birth){
+      var that = this
+      let date1 = new Date(Date_end);
+      let date2 = new Date();
+      let date3 = new Date(Birth)
+  //获取在一起总时间
+      date1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
+      date2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+      //console.log("qqq",date2,"sdada",date1)
+      const diff = date2.getTime() - date1.getTime(); //目标时间减去当前时间
+      const diffDate = diff / (24 * 60 * 60 * 1000);  //计算当前时间与结束时间之间相差天数
+      //console.log("dasdasda",diffDate)
+      that.Sum_days = diffDate
+  //获取周年纪念
+      date1 = new Date(date2.getFullYear(), date1.getMonth(), date1.getDate());
+      date2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+      const diff_year = date2.getTime() - date1.getTime(); //目标时间减去当前时间
+      var diffDate_year = diff_year / (24 * 60 * 60 * 1000);  //计算当前时间与结束时间之间相差天数
+      //console.log("dasdasda",diffDate_year)
+      if(diffDate_year < 0) diffDate_year = (-diffDate_year)
+      that.Year_days = diffDate_year
+  //获取生日倒计时
+      date1 = new Date(date2.getFullYear(), date3.getMonth(), date3.getDate());
+      date2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+      //console.log("qqq",date2,"sdada",date1)
+      const diff_birth = date2.getTime() - date1.getTime(); //目标时间减去当前时间
+      var diffDate_birth = diff_birth / (24 * 60 * 60 * 1000);  //计算当前时间与结束时间之间相差天数
+      //小于零说明本年生日还没到 大于0根据本年是闰还是平年计算下年生日时间
+      that.Birth_days = diffDate_birth < 0?(-diffDate_birth):(diffDate_birth%4==0?(366-diffDate_birth):365-diffDate_birth)
+    }
+}
+
 }
 </script>
-
-
 
 
 <style lang="scss" scoped>
