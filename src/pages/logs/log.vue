@@ -3,7 +3,7 @@
   <div class="We">
     <div class="Title">
       <div>
-        <img class="image" src="/static/images/love.jpg">
+        <img class="image" width="50px" src="/static/images/love.jpg">
       </div>
     </div>
 
@@ -21,7 +21,7 @@
 
       <div class="body">
         <div class="body-header" @click="Onclick_two">
-          <span>距离 宝宝 生日还有:</span>
+          <span> 宝宝的生日还有:</span>
           <span class="num">
             <span class="days_num">{{Birth_days}}</span>
             <span class="days">days</span>
@@ -145,7 +145,7 @@ export default {
 .We{
   
   .Title{
-    padding: 50px 0; //上下拉伸25 左右为0
+    padding: 30px 30px; //上下拉伸25 左右为0
   }
   .List{
     padding-left: 10px;
@@ -162,12 +162,13 @@ export default {
       .body-header{
         font-size: 15px;
         padding-left: 20px;
-        color: rgb(76, 64, 49);
+        color: rgba(87, 45, 53, 0.625);
 
         .num{
           padding-left: 110px;
           .days_num{
             font-size: 25px;
+            padding-top: 10px;
             color: rgb(217, 56, 155);
           }
           .days{
@@ -179,7 +180,7 @@ export default {
       .body-text{
         font-size: 10px;
         padding-left: 20px;
-        color: rgba(72, 110, 166, 0.927);
+        color: rgba(165, 167, 169, 0.801);
       }
     }
 

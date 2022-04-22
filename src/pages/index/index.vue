@@ -30,7 +30,7 @@
           <div class="data">
             <img class="data-logo" src="/static/images/Tmp.png" />
             <div class="data-text">
-              <div class="data-title">温度</div>
+              <div class="data-title">室内温度</div>
               <div class="data-value">{{Temp}}℃</div>
             </div>
           </div>
@@ -38,8 +38,8 @@
           <div class="data">
             <img class="data-logo" src="/static/images/shidu.png" />
             <div class="data-text">
-              <div class="data-title">湿度</div>
-              <div class="data-value">%{{Hum}}</div>
+              <div class="data-title">室内湿度</div>
+              <div class="data-value">{{Hum}}%</div>
             </div>
           </div>
           
@@ -96,7 +96,7 @@ export default {
       client:{},
       Temp:0,//使用{{Temp}}绑定
       Hum:0,
-      Light:0,
+      Light:1234,
       LED:0,
       Beep:0,
       area:'请求中...', //地区
@@ -228,8 +228,8 @@ export default {
       console.log(dataFromDev)
       //将阿里云下发的状态进行组件更新
       that.Temp = dataFromDev.TargetTemperature //从解析出来的json数据赋值到组件中数据
-      that.Hum = dataFromDev.Hum
-      that.Light = dataFromDev.Light
+      that.Hum = dataFromDev.RelativeHumidity
+      //that.Light = dataFromDev.Light
       that.LED = dataFromDev.StatusLightSwitch
       that.Beep = dataFromDev.Beep
     })
