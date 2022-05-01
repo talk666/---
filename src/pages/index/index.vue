@@ -96,7 +96,7 @@ export default {
       client:{},
       Temp:0,//使用{{Temp}}绑定
       Hum:0,
-      Light:1234,
+      Light:0,
       LED:0,
       Beep:0,
       area:'请求中...', //地区
@@ -172,9 +172,6 @@ export default {
     
   },
 
-  // created () {
-  //   // let app = getApp()
-  // }
   created() {
    /*阿里云官网demo
    console.log('正在连接...')
@@ -229,7 +226,7 @@ export default {
       //将阿里云下发的状态进行组件更新
       that.Temp = dataFromDev.TargetTemperature //从解析出来的json数据赋值到组件中数据
       that.Hum = dataFromDev.RelativeHumidity
-      //that.Light = dataFromDev.Light
+      that.Light = dataFromDev.LightLux
       that.LED = dataFromDev.StatusLightSwitch
       that.Beep = dataFromDev.Beep
     })
